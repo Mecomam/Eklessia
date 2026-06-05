@@ -20,7 +20,7 @@ jobs:
       - name: Configurar Flutter (Versión Estable Garantizada)
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.x' # Forzamos una versión comercial ultra-compatible
+          flutter-version: '3.22.x'
           channel: 'stable'
 
       - name: Generar Estructura Nativa Android
@@ -32,6 +32,12 @@ jobs:
           rm -rf lib pubspec.yaml
           mv temp_code/lib .
           mv temp_code/pubspec.yaml .
+        shell: bash
+
+      - name: Configurar Permisos de Internet y HTTP en Android
+        run: |
+          sed -i '/<application/i \    <uses-permission android:name="android.permission.INTERNET"/>' android/app/src/main/AndroidManifest.xml
+          sed -i 's/<application/<application android:usesCleartextTraffic="true"/' android/app/src/main/AndroidManifest.xml
         shell: bash
 
       - name: Instalar Dependencias
@@ -54,7 +60,7 @@ jobs:
       - name: Configurar Flutter (Versión Estable Garantizada)
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.x' # Alineado con la misma versión estable
+          flutter-version: '3.22.x'
           channel: 'stable'
 
       - name: Generar Estructura Nativa Windows
