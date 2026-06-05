@@ -116,13 +116,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return FutureBuilder<List<Member>>(
       future: _membersFuture,
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              key: const Key("error_state"),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.cloud_off, size: 60, color: Colors.red),
+                  const SizedBox(height: 16),
+                  Text(
+                    "Error de Conexión con la Base de Datos:\n${snapshot.error}",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          );
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text("No hay miembros registrados."));
+        }
         return SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: SizedBox(
             width: double.infinity,
             child: DataTable(
-              headingRowColor: MaterialStateProperty.all(Colors.grey[200]),
+              headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
               columns: const [
                 DataColumn(label: Text('Nombre Completo', style: TextStyle(fontWeight: FontWeight.bold))),
                 DataColumn(label: Text('Email', style: TextStyle(fontWeight: FontWeight.bold))),
