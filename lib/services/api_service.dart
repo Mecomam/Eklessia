@@ -5,7 +5,7 @@ import '../models/member.dart';
 
 class ApiService {
   // Reemplazar con la URL IP de tu servidor backend Node.js
-  final String baseUrl = "http://localhost:5000/api";
+  final String baseUrl = "http://192.168.1.149:5000/api";
   final _storage = const FlutterSecureStorage();
 
   Future<Map<String, String>> _getHeaders() async {
