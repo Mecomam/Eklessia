@@ -23,6 +23,17 @@ jobs:
           flutter-version: '3.x'
           channel: 'stable'
 
+      - name: Generar Estructura Nativa Android
+        run: |
+          mkdir temp_code
+          mv lib temp_code/
+          mv pubspec.yaml temp_code/
+          flutter create --platforms=android --project-name=iglesia_moral_calatrava .
+          rm -rf lib pubspec.yaml
+          mv temp_code/lib .
+          mv temp_code/pubspec.yaml .
+        shell: bash
+
       - name: Instalar Dependencias
         run: flutter pub get
 
@@ -45,6 +56,17 @@ jobs:
         with:
           flutter-version: '3.x'
           channel: 'stable'
+
+      - name: Generar Estructura Nativa Windows
+        run: |
+          mkdir temp_code
+          mv lib temp_code/
+          mv pubspec.yaml temp_code/
+          flutter create --platforms=windows --project-name=iglesia_moral_calatrava .
+          rm -rf lib pubspec.yaml
+          mv temp_code/lib .
+          mv temp_code/pubspec.yaml .
+        shell: bash
 
       - name: Instalar Dependencias
         run: flutter pub get
