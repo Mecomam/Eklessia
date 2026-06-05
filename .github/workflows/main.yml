@@ -17,10 +17,10 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Configurar Flutter
+      - name: Configurar Flutter (Versión Estable Garantizada)
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.x'
+          flutter-version: '3.22.x' # Forzamos una versión comercial ultra-compatible
           channel: 'stable'
 
       - name: Generar Estructura Nativa Android
@@ -51,10 +51,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configurar Flutter
+      - name: Configurar Flutter (Versión Estable Garantizada)
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.x'
+          flutter-version: '3.22.x' # Alineado con la misma versión estable
           channel: 'stable'
 
       - name: Generar Estructura Nativa Windows
